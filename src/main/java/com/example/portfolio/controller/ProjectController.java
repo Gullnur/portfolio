@@ -4,7 +4,6 @@ import com.example.portfolio.dto.ProjectRequest;
 import com.example.portfolio.dto.ProjectResponse;
 import com.example.portfolio.service.ProjectService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,26 +21,22 @@ public class ProjectController {
 
     @PostMapping
     public ResponseEntity<ProjectResponse> createProject(@Valid @RequestBody ProjectRequest request) {
-        ProjectResponse response = projectService.createProject(request);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<ProjectResponse>> getAllProjects() {
-        List<ProjectResponse> responses = projectService.getAllProjects();
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(projectService.createProject(request));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResponse> getProjectById(@PathVariable Long id) {
-        ProjectResponse response = projectService.getProjectById(id);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(projectService.getProjectById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProjectResponse>> getAllProjects() {
+        return ResponseEntity.ok(projectService.getAllProjects());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProjectResponse> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectRequest request) {
-        ProjectResponse response = projectService.updateProject(id, request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(projectService.updateProject(id, request));
     }
 
     @DeleteMapping("/{id}")
@@ -49,4 +44,20 @@ public class ProjectController {
         projectService.deleteProject(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ProjectResponse>> getProjectsByUserId(@PathVariable Long userId) {
+        List<ProjectResponse> projects = projectService.getProjectsByUserId(userId);
+        return ResponseEntity.ok(projects);
+    }
+    @GetMapping("/search/technology")
+    public ResponseEntity<List<ProjectResponse>> getByTechnology(@RequestParam String keyword) {
+        return ResponseEntity.ok(projectService.getProjectsByTechnology(keyword));
+    }
+
+    @GetMapping("/search/name")
+    public ResponseEntity<List<ProjectResponse>> getByName(@RequestParam String keyword) {
+        return ResponseEntity.ok(projectService.getProjectsByName(keyword));
+    }
+
 }

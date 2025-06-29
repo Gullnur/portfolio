@@ -1,40 +1,24 @@
 package com.example.portfolio.dto;
 
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProjectResponse {
 
     private Long id;
+
     private String name;
-    private String description;
-    private String technologies;
-    private String projectUrl;
 
-    // --- Constructor ---
-    public ProjectResponse(Long id, String name, String description, String technologies, String projectUrl) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.technologies = technologies;
-        this.projectUrl = projectUrl;
-    }
+    private String shortDescription;
 
-    // --- Getters ---
-    public Long getId() {
-        return id;
-    }
+    private String[] technologies;
 
-    public String getName() {
-        return name;
-    }
+    private String link;
 
-    public String getDescription() {
-        return description;
-    }
+    private Long userId;
 
-    public String getTechnologies() {
-        return technologies;
-    }
-
-    public String getProjectUrl() {
-        return projectUrl;
-    }
+    private String userName;
 }

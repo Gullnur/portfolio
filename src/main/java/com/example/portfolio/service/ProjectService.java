@@ -9,16 +9,18 @@ public interface ProjectService {
 
     ProjectResponse createProject(ProjectRequest request);
 
-    List<ProjectResponse> getAllProjects();
-
     ProjectResponse getProjectById(Long id);
+
+    List<ProjectResponse> getAllProjects();
 
     ProjectResponse updateProject(Long id, ProjectRequest request);
 
     void deleteProject(Long id);
 
+    List<ProjectResponse> getProjectsByUserId(Long userId);
 
+    List<ProjectResponse> getProjectsByTechnology(String keyword);
 
-
+    List<ProjectResponse> getProjectsByName(String keyword);
 
 }

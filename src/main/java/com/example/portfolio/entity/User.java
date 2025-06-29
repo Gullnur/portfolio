@@ -3,13 +3,15 @@ package com.example.portfolio.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "projects")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Project {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +20,9 @@ public class Project {
     @Column(nullable = false)
     private String name;
 
-    @Column(length = 1000)
-    private String description;
+    @Column(unique = true, nullable = false)
+    private String email;
 
-    @Column(nullable = false)
-    private String technologies;
-
-    private String link;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Project> projects;
 }
